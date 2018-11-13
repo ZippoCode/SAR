@@ -1,0 +1,7 @@
+# Access Read Topic
+user subscriber
+topic read #
+
+# Access Write Topic
+user publisher
+topic write #

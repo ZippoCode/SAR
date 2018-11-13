@@ -1,0 +1,19 @@
+<html>
+    <body>
+        {{message}}
+        <h1>Guestbooks:</h1>
+            <!-- Print all guestbooks -->
+            <ul>
+            {% for g in guestbooks %}
+                <li><h2><a href="/guestbook/{{g.name}}">{{ g.name }}</a></h2>
+            {% endfor %}
+            </ul>
+        <hr>
+        <form action="{{url_for('home')}}" method="POST">
+            <label for="title">Guestbook Title: </label>
+            <input id="title" type="text" name="guestbook_title">
+            <br />
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Value</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='select_view.css')}}">
+</head>
+<body>
+<form method="post">
+    <div>
+        <select name='selection'>
+            {% for value in value_select %}
+            <option value="{{value}}">{{value}}</option>
+            {% endfor %}0
+        </select>
+
+        <input type="checkbox" name="state" value="ON"> Accendi
+
+        <input type="range" name="range_value" min="1" max="100" value="50">
+    </div>
+    <input type="submit" placeholder="Invia Richiesta">
+</form>
+</body>
+</html>

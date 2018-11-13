@@ -1,0 +1,13 @@
+runtime: python27
+threadsafe: True
+
+handlers:
+  - url: /static
+    static_dir: app/static/css
+
+  - url: /.*
+    script: app.flask_app.app
+
+libraries:
+ - name: ssl
+   version: latest

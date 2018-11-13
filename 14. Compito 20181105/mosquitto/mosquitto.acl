@@ -1,0 +1,7 @@
+# Access Read Topic
+user postazione
+topic read Play/#
+
+# Access Write Topic
+user karaoke
+topic write Play/#

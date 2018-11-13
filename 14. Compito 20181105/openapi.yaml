@@ -1,0 +1,166 @@
+openapi: 3.0.1
+info:
+  version: '0.1'
+  title: SAR Multisala API
+servers:
+  - url: 'http://localhost:{port}/{basePath}'
+    description: Local developement server
+    variables:
+      port:
+        default: '8080'
+      basePath:
+        default: api/v0.1
+paths:
+  '/reservations/{room}/{time}':
+    parameters:
+      - name: room
+        in: path
+        required: true
+        description: Name of the room
+        schema:
+          $ref: '#/components/schemas/room'
+      - name: time
+        in: path
+        required: true
+        description: Time of the projection
+        schema:
+          $ref: '#/components/schemas/time'
+    get:
+      description: |
+        Get the state of the seats in a projection
+      responses:
+        '200':
+          description: |
+            Get the list of the available and reserved seats in the
+            requested projection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reserved:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/seat'
+                  available:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/seat'
+              example:
+                reserved:
+                  - 'A01'
+                  - 'A03'
+                available:
+                  - 'A02'
+                  - 'A04'
+        '404':
+          description: The required projection does not exist.
+    post:
+      description: |
+        Allow a user to reserve a set of seats in the requested projection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/email'
+                  reserve:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/seat'
+                example:
+                  user: 'user@test.com'
+                  reserve:
+                   - 'A01'
+                   - 'A02'
+                   - 'A03'
+      responses:
+        '403':
+          description: |
+            One or more of the requried seats are already reserved. Does
+            not modify the state of any seats and return the list of the
+            seats that are already reserved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/seat'
+                example:
+                  - 'A02'
+                  - 'A03'
+        '500':
+          description: |
+            Invalid input data (might also involve a missing seat)
+        '404':
+          description: |
+            The required projection does not exist
+  '/users/<email>':
+    parameters:
+      - name: email
+        in: path
+        required: true
+        description: Email of the user.
+        schema:
+          $ref: '#/components/schemas/email'
+    get:
+      description: Return the reservations of the user
+      responses:
+        '200':
+          description: Return the reservations of the user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserReservation'
+        '404':
+          description: The user does not exists.
+components:
+  schemas:
+    room:
+      type: string
+      pattern: 'sala\d{1}$'
+      example: 'sala1'
+    time:
+      type: string
+      format: string
+      enum:
+        - '17:30'
+        - '20:00'
+        - '22:30'
+    email:
+      type: string
+      format: email
+      maxLength: 40
+      minLength: 6
+      example: 'user@test.com'
+    seat:
+      type: string
+      pattern: '[A-Z]\d{2}$'
+      example: 'A03'
+    UserReservation:
+      type: array
+      items:
+        type: object
+        properties:
+          room:
+            $ref: '#/components/schemas/room'
+          time:
+            $ref: '#/components/schemas/time'
+          seats:
+            type: array
+            items:
+              $ref: '#/components/schemas/seat'
+        example:
+          - room: 'sala1'
+            time: '17:30'
+            seats:
+              - 'A03'
+              - 'A04'
+          - room: 'sala3'
+            time: '20:00'
+            seats:
+              - 'B09'
+              - 'B10'

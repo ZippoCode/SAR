@@ -1,0 +1,16 @@
+body {
+    background-image: url(http://www.designbolts.com/wp-content/uploads/2012/12/White-Brick-Wall-Seamless-Pattern.jpg);
+}
+.error-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+.error-actions {
+    margin-top:15px;
+    margin-bottom:15px;
+}
+
+.error-actions .btn {
+    margin-right:10px;
+}

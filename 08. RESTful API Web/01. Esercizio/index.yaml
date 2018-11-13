@@ -1,0 +1,7 @@
+indexes:
+
+- kind: Color
+  ancestor: yes
+  properties:
+  - name: label
+    direction: desc

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Parking</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='main_view.css')}}">
+</head>
+<body>
+<h2>Inserisci un email</h2>
+<h3>Ti verrà assegnato un codice e un parcheggio</h3>
+<form method="POST">
+    <container class="email_container">
+        <div>
+            <input type="text" name='email' placeholder="Scrivi l'email" required/>
+        </div>
+        <div>
+            <input type="submit" value="Invia Prenotazione"/>
+        </div>
+        {% if error %}
+        <p>Error: {{error}}</p>
+        {% endif %}
+    </container>
+</form>
+<a href="/show_parking">Visualizza lo stato dei parcheggi</a>
+</body>
+</html>

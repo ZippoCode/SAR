@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stato dei parcheggi</title>
+</head>
+<body>
+<h1>Stato attuale dei parcheggi:</h1>
+<div>
+    <ul>
+        {% for parking in parkings %}
+        <li>
+            <label>Parcheggio: # {{parking.parking_id}} {{parking.state}}
+                {% if parking.state %}
+                <font color="Green">
+                    Disponibile
+                </font>
+                {% else %}
+                <font color="Red">
+                    Occupato
+                </font>
+                {% endif %}
+            </label>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+</body>
+</html>

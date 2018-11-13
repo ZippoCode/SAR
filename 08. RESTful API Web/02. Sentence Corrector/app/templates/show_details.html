@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="in">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagina Dei Dettagli</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='detail_view.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='button.css')}}">
+</head>
+<body>
+<h1>DETTAGLI</h1>
+<div>
+    {% if type == 'phrase' -%}
+    <div>
+        <p>Frase Originale: {{value.original}}</p>
+        <p>Frase Suggerita: {{value.suggestion}}</p>
+        <p>Numero Occorrenze: {{value.counter}}</p>
+        <p>Creata: {{value.created}}</p>
+    </div>
+    {% elif type == 'frequent' %}
+    <div>
+        <p>Parola: {{value.error}}</p>
+        <p>Numero Occorrenze: {{value.counter}}</p>
+        <p>Creata: {{value.created}}</p>
+        <p>Possibili Correzioni: </p>
+        {% for item in value.list_suggestion %}
+        <li>{{item}}</li>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+<form action="\" method="GET">
+    <input type="submit" value="Torna alla home">
+</form>
+</body>
+</html>

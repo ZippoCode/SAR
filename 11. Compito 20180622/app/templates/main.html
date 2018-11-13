@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vista dei valori</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='list_view.css') }}">
+</head>
+<body>
+<h2>La lista dei valori è:</h2>
+{% if not value_list %}
+<h2>Nessun valore trovato</h2>
+{% endif %}
+<ul>
+    {% for value in value_list %}
+    <li><a href="/show_details/{{value.title}}">{{value.title}}</a></li>
+    {% endfor %}
+</ul>
+</body>
+<a href="{{url_for('new_sondaggio')}}">Aggiungi un nuovo sondaggio</a>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='list_view.css') }}"/>
+</head>
+<body>
+{% if not list %}
+    <label>Nessun elemento trovato non trovato</label>
+{% else %}
+    <ul>
+        {% for elem in list %}
+            <li><a href="{{ '/show_city/'+elem.name }}">{{ elem.name }}</a> - {{ elem.zone }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+</body>
+</html>

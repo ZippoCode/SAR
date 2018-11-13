@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="in">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagina Dei Dettagli</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='detail_view.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='button.css')}}">
+</head>
+<body>
+<h1>DETTAGLI SONDAGGIO</h1>
+<div>
+    <div>
+        <p>Parola: {{sondaggio.title}}</p>
+        <p>Numero totale: {{totale}}</p>
+        <p>Numero risposte positive: {{sondaggio.positivi}}</p>
+        <p>Numero risposte negative: {{sondaggio.negativi}}</p>
+        <p>Numero risposte astenuti: {{sondaggio.astenuti}}</p>
+    </div>
+    {% if totale > 0 %}
+    <img src="https://image-charts.com/chart?cht=p&chd=t:{{sondaggio.positivi}},{{sondaggio.negativi}},{{sondaggio.astenuti}}&chs=500x500&chl=p|n|a"/>
+    {% endif %}
+</div>
+<form action="\" method="GET">
+    <input type="submit" value="Torna alla home">
+</form>
+</body>
+</html>

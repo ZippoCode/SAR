@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Hello world</title>
+  </head>
+  <body>
+    <div id="container">
+      <div class="pagetitle">
+        <h1>Hello World Homepage</h1>
+      </div>
+      <div id="main">
+        {% if not handlers %}
+            <h3>No handlers available</h3>
+        {% else %}
+            <h3>List of the available services</h3>
+            <ul>
+            {% for name, ref in handlers %}
+                <li>
+                    <a href="{{ref}}">{{name}}</a>
+                </li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

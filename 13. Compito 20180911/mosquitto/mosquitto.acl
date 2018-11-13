@@ -1,0 +1,7 @@
+# Access Read Topic
+user robot
+topic read #
+
+# Access Write Topic
+user ordinazione
+topic write #

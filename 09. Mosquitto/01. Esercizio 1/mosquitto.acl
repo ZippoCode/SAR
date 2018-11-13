@@ -1,0 +1,11 @@
+# Access Read Topic
+user subscriber
+topic read #
+
+# Access Write Topic Ferrari
+user Ferrari
+topic write Ferrari/#
+
+# Access Write Topic Mercedes
+user Mercedes
+topic write Mercedes/#

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post">
+    <div>
+        <select name="select_value">
+            {% for value in value_list %}
+            <option value="{{value}}"> {{value}}</option>
+            {% endfor %}
+        </select>
+        <input type="checkbox" name="checkbox"> Accendi
+        <input type="range" min="0" max="100" value="50" name="slider">
+        <p></p>
+        <input type="submit" placeholder="Invia Richiesta" name="submit">
+    </div>
+
+    {% if inviato %}
+    <div>
+        <p>
+            <label>Messaggio inviato</label>
+        </p>
+    </div>
+    {% endif %}
+</form>
+</body>
+</html>

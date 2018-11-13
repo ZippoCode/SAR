@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cinema</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='form_view.css') }}"/>
+</head>
+<body>
+<h2>Selezionare i seguenti campi:</h2>
+<form method="POST">
+    {{ form.csrf_token }}
+    <p>
+        {{ form.sala.label }}
+        {{ form.sala }}
+    </p>
+    <p>
+        {{ form.orario.label }}
+        {{ form.orario }}
+    </p>
+    <p>
+        {{ form.id_film.label }}
+        {{ form.id_film }}
+    </p>
+    <input type="submit" value="Invia Richiesta">
+</form>
+</body>
+</html>

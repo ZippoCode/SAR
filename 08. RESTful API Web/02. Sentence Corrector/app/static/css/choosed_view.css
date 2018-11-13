@@ -1,0 +1,16 @@
+body{
+    background: #F2F2F2;
+}
+
+p {
+    font-family: sans-serif;
+    size: 30px;
+}
+
+
+select{
+    font-family: roboto-light;
+    font-size: 15px;
+    padding: 5px;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spellcheck</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='mainpage.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='button.css')}}">
+</head>
+<body>
+<h1>
+    Esercizio: Sentence Corrector
+</h1>
+
+<form method="POST">
+    <div class="container">
+        <label for="frase">Inserire una frase. L'applicazione eseguirà un controllo ortografico</label>
+        <input type="text" id="frase" name="phrase" placeholder="Scrivere la frase" required>
+        {% if message %}
+        <p class=Message><strong>La frase "{{ message }}" non presenta errori</strong></p>
+        {% endif %}
+        <input type="submit" value="Inserisci una nuova frase">
+    </div>
+    <input type="hidden" name="csrf_token" value="{{  csrf_token() }}"/>
+</form>
+
+<form action="/list_phrases" method="GET">
+    <div class="container">
+        <input type="submit" value="Visualizza le frasi inserite">
+    </div>
+</form>
+<form action="/list_frequents" method="GET">
+    <div class="container">
+        <input type="submit" value="Visualizza le parole sbagliate">
+    </div>
+</form>
+</body>
+</html>

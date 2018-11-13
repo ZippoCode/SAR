@@ -1,0 +1,17 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+ - url: /static
+   static_dir: static
+
+ - url: /greetings/.*
+   script: app.flask_template_file.app
+
+ - url: /.*
+   script: app.flask_app.app
+
+libraries:
+ - name: ssl
+   version: latest

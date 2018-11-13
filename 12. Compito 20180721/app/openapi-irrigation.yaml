@@ -1,0 +1,202 @@
+openapi: "3.0.1"
+info:
+  version: "0.1"
+  title: "Irrigation API"
+servers:
+  - url: http://localhost:{port}/{basePath}
+    description: "Local developement server"
+    variables:
+      port:
+        default: '8080'
+      basePath:
+        default: 'api/v0.1'
+paths:
+  /city/{city}:
+    parameters:
+    - name: city
+      in: path
+      required: true
+      description: "The name of the city."
+      schema:
+        $ref: "#/components/schemas/CityName"
+
+    get:
+      description: "Return the list of the city zones."
+      responses:
+        200:
+          description: "Return the list of the city zones."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  zones:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ZoneName"
+                example:
+                  zones:
+                    - 'gardens'
+                    - 'city hall'
+                    - 'library'
+        404:
+          description: "The city does not exist."
+  /city/{city}/zone/{zone}:
+    parameters:
+    - name: city
+      in: path
+      required: true
+      description: "The name of the city."
+      schema:
+        $ref: "#/components/schemas/CityName"
+    - name: zone
+      in: path
+      required: true
+      description: "The name of the zone."
+      schema:
+        $ref: "#/components/schemas/ZoneName"
+    get:
+      description: "Return information about the city zone."
+      responses:
+        200:
+          description: "Return information about the city zone."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ZoneInfo"
+        404:
+          description: "The zone does not exist."
+    post:
+      requestBody:
+        required: True
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ZoneInfo"
+      responses:
+        201:
+          description: "Zone created."
+        400:
+          description: "Invalid inputs."
+        409:
+          description: "Zone with the given name already exists."
+    put:
+      requestBody:
+        required: True
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ZoneInfo"
+      responses:
+        200:
+          description: "Zone modified."
+        400:
+          description: "Invalid inputs."
+        404:
+          description: "Zone does not exist."
+  /city/{city}/zone/{zone}/rule/{rule}:
+    parameters:
+    - name: city
+      in: path
+      required: true
+      description: "The name of the city."
+      schema:
+        $ref: "#/components/schemas/CityName"
+    - name: zone
+      in: path
+      required: true
+      description: "The name of the zone."
+      schema:
+        $ref: "#/components/schemas/ZoneName"
+    - name: rule
+      in: path
+      required: true
+      description: "The name of the rule."
+      schema:
+        $ref: "#/components/schemas/RuleName"
+    get:
+      description: "Return information about the rule."
+      responses:
+        200:
+          description: "Return information about the rule."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RuleInfo"
+        404:
+          description: "The rule does not exist."
+    post:
+      requestBody:
+        required: True
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RuleInfo"
+      responses:
+        201:
+          description: "Rule created."
+        400:
+          description: "Invalid inputs."
+        409:
+          description: "Rule with the given name already exists."
+    put:
+      requestBody:
+        required: True
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RuleInfo"
+      responses:
+        200:
+          description: "Rule modified."
+        400:
+          description: "Invalid inputs."
+        404:
+          description: "Rule does not exist."
+
+components:
+  schemas:
+    CityName:
+      type: string
+      maxLength: 20
+      minLength: 2
+    ZoneName:
+      type: string
+      maxLength: 20
+      minLength: 6
+    RuleName:
+      type: string
+      maxLength: 10
+      minLength: 6
+      example: "night"
+    TimeValue:
+      type: string
+      format: string
+      enum: ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', 
+             '18:00', '21:00']
+    IntensityValue:
+      type: integer
+      format: int32
+      enum: [0, 20, 40, 60, 80, 100]
+    RuleInfo:
+      type: object
+      properties:
+        time:
+          $ref: "#/components/schemas/TimeValue"
+        intensity:
+          $ref: "#/components/schemas/IntensityValue"
+      example:
+        time: 03:00
+        intensity: 60
+    ZoneInfo:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            $ref: "#/components/schemas/RuleName"
+          info:
+            $ref: "#/components/schemas/RuleInfo"
+            
+   
+

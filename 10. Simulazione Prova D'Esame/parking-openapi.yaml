@@ -1,0 +1,121 @@
+openapi: "3.0.1"
+info:
+  version: "1.0"
+  title: "Parking API"
+servers:
+  - url: http://localhost:{port}/{basePath}
+    description: Local developement server
+    variables:
+      port:
+        default: '8080'
+      basePath:
+        default: 'api/v1.0'
+paths:
+  /availables:
+    get:
+      description: Require the available parking slots.
+      responses:
+        200:
+          description: Return the list of the available parking slots.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParkingslotsList'
+  /slot/{slot-id}:
+    parameters:
+      - name: slot-id
+        in: path
+        required: true
+        description: The identifier of the parking slot.
+        schema:
+          type: integer
+          format: int32
+    get:
+      description: |
+        Require the state (occupied or free) of a parking slot.
+      responses:
+        200:
+          description: |
+            Return the state of the required parking slot.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParkingslotLabelState'
+        400:
+          description: |
+            Indicate invalid input parameters in the update request.
+        404:
+          description: |
+            Indicate that the required parking slot does not exist.
+    put:
+      description: Update the state of a parking slot.
+      requestBody:
+        required: True
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ParkingslotState"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/ParkingslotState"
+      responses:
+        200:
+          description: |
+            Confirm the correct modification of the parking slot state and
+            return the new value of the state.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ParkingslotLabelState"
+        204:
+          description: |
+            Indicate that the parking slot is already at the required state and
+            no update on the parking state has been applied.
+        400:
+          description: |
+            Indicate invalid input parameters in the update request.
+        404:
+          description: |
+            The required parking slot does not exist.
+components:
+  schemas:
+    ParkingslotLabelState:
+      type: object
+      properties:
+        slot:
+          type: integer
+          format: int32
+          description: Identifier of the parking slot
+        state:
+          type: string
+          format: string
+          enum: ['available','occupied']
+      example:
+        slot: 207
+        state: 'available'
+    ParkingslotsList:
+      type: object
+      properties:
+        slots:
+          type: array
+          items:
+            type: integer
+            format: int32
+      example:
+        slots:
+          - 110
+          - 203
+          - 209
+          - 305
+    ParkingslotState:
+      type: object
+      properties:
+        state:
+          type: string
+          format: string
+          enum: ['available','occupied']
+      required:
+        - state
+      example:
+        state: 'occupied'
+

@@ -1,0 +1,5 @@
+user publisher
+topic readwrite Home/#
+
+user subscriber
+topic read Home/#

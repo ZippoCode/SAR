@@ -1,0 +1,19 @@
+body{
+    background: #F2F2F2;
+}
+
+ul.a{
+    list-style-type:circle;
+}
+
+ul li{
+    margin-bottom: 3px;
+    font-family: arial;
+    font-size:16px;
+    text-decoration:none;
+}
+
+a{
+    text-decoration:none;
+
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cerca una canzone</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='form_view.css') }}">
+
+</head>
+<body>
+<h1>Benvenuto.</h1>
+<h2>Inserisci un'email e il titolo di una canzone</h2>
+
+<form method="POST">
+    {{ form.csrf_token }}
+    <p>
+        {{ form.email.label }} {{ form.email }}
+    </p>
+    <p>
+        {{ form.name_song.label }} {{ form.name_song }}
+    </p>
+    <input type="submit" value="Ricerca">
+</form>
+</body>
+</html>

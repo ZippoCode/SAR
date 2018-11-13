@@ -1,0 +1,163 @@
+openapi: "3.0.1"
+info:
+  version: "0.1"
+  title: "Polls API"
+servers:
+  - url: http://localhost:{port}/{basePath}
+    description: "Local developement server"
+    variables:
+      port:
+        default: '8080'
+      basePath:
+        default: 'api/v0.1'
+paths:
+  /polls:
+    get:
+      description: "Returns the list of the avilable polls."
+      responses:
+        200:
+          description: "Return the list of the available polls."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  polls:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PollId"
+                example:
+                  polls:
+                    - 'f23v2ff9GtXmCWpkaMwtvg'
+                    - 'qqqc9smuLPMNy15seobkmw'
+                    - 'I22owZY8uZ60G5alsQwiGw'
+                    - 'foRRmxmoDKaUU-7FxfOE6g'
+        404:
+          description: "The required poll does not exist."
+  /poll:
+    description: "Create a new poll."
+    post:
+      requestBody:
+        required: True
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  $ref: "#/components/schemas/PollTitle"
+              example:
+                title: "Domani sabato 23 giugno andiamo al mare."
+      responses:
+        201:
+          description: "Poll created."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    $ref: "#/components/schemas/PollId"
+                  title:
+                    $ref: "#/components/schemas/PollTitle"
+                example:
+                  id: "foRRmxmoDKaUU-7FxfOE6g"
+                  title: "Domani sabato 23 giugno andiamo al mare."
+        400:
+          description: "Invalid inputs."
+        409:
+          description: "Poll with the given title already exists."
+  /poll/{poll-id}:
+    description: "Read or update an existing poll."
+    parameters:
+      - name: poll-id
+        in: path
+        required: true
+        description: "The identifier of the poll."
+        schema:
+          $ref: "#/components/schemas/PollId"
+    get:
+      description: "Return the results of the poll."
+      responses:
+        200:
+          description: "Return the votes of the required poll."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    $ref: "#/components/schemas/PollTitle"
+                  P:
+                    $ref: "#/components/schemas/VoteCounter"
+                  N:
+                    $ref: "#/components/schemas/VoteCounter"
+                  A:
+                    $ref: "#/components/schemas/VoteCounter"
+                required:
+                  - P
+                  - N
+                  - A
+                example:
+                  title: "Let's go to the beach tomorrow."
+                  vote:
+                    P: 0
+                    N: 8
+                    A: 2
+        400:
+          description: "Indicate invalid input parameters."
+    put:
+      description: "Update the votes of the required poll."
+      requestBody:
+        required: True
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                vote:
+                  $ref: "#/components/schemas/PollValue"
+      responses:
+        200:
+          description: "Poll updated with the new vote."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  P:
+                    $ref: "#/components/schemas/VoteCounter"
+                  N:
+                    $ref: "#/components/schemas/VoteCounter"
+                  A:
+                    $ref: "#/components/schemas/VoteCounter"
+                example:
+                  P: 5
+                  N: 3
+                  A: 1
+        400:
+          description: "Invalid input parameters."
+        404:
+          description: "The poll does not exist."
+components:
+  schemas:
+    PollId:
+      type: string
+      pattern: byte
+      minLength: 24
+      maxLength: 24
+      description: Urlsafe base64 encoding of 16 bytes
+    PollTitle:
+      type: string
+      format: string
+      maxLength: 50
+    PollValue:
+      type: string
+      format: string
+      enum: ['P', 'N', 'A']
+      description: "Poll vote: Positive (P), Negative (N), Abstained (A)"
+    VoteCounter:
+      type: integer
+      format: integer32
+      minimum: 0
+

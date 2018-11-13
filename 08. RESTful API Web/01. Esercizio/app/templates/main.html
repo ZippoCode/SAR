@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>RESTApi Web App</title>
+</head>
+<body>
+<div id="container">
+    <div id="pagetitle">
+        <h1>RESTApi Web APP</h1>
+    </div>
+    <h2>Lista di comandi disponibili</h2>
+    <div id="main">
+        {% if handlers %}
+        <ul>
+            {% for name, ref in handlers %}
+            <li>
+                <a href="{{ref}}">{{name}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>

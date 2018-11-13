@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dettagli Prenotazione</title>
+</head>
+<body>
+<div>
+    <h2>Prenotazione effettuata</h2>
+    <p>EMAIL: {{prenotazione["ID"]}}</p>
+    <p>CODE: {{prenotazione["Code"]}}</p>
+    <p>POSTO AUTO: {{prenotazione["Parking"]}}</p>
+    <p>DATA PRENOTAZIONE {{prenotazione["Created"]}}</p>
+    <img src="{{img}}"/>
+</div>
+<div>
+    <a href="/">Ritorna alla home.</a>
+</div>
+</body>
+</html>

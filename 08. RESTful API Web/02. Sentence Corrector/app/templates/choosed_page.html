@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='choosed_view.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='button.css')}}">
+    <title>Seleziona le correzioni</title>
+</head>
+<body>
+<form method="POST">
+    <div>
+        <p>La frase inserita è: {{ phrase }}</p>
+    </div>
+    <div class="container">
+        <select name="phrase_select">
+            {% for correction in corrections %}
+            <option value="{{correction}}">{{correction}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <input type="submit" value="Carica la correzione">
+    </div>
+    <input type="hidden" name="csrf_token" value="{{  csrf_token() }}"/>
+</form>
+</body>
+</html>

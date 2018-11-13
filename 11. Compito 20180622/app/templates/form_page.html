@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inserisci una frase</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='form_view.css') }}">
+</head>
+<body>
+<form method="post">
+    <container class="input_text">
+        <h3>Inserisci una nuova frase:</h3>
+        <input type="text" name="text" placeholder="Inserisci una frase"/>
+        <input type="submit" placeholder="Invia"/>
+    </container>
+    <input type="hidden" name="csrf_token" value="{{  csrf_token() }}"/>
+</form>
+</body>
+</html>

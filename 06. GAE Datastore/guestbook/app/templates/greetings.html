@@ -1,0 +1,21 @@
+<html>
+    <body>
+        <h1>Greetings for {{guestbook}}</h1>
+            <!-- Print all guestbooks -->
+            <ul>
+            {% for g in greetings %}
+                <li><b>{{g.date}}:</b> {{g.content}}</li>
+            {% endfor %}
+            </ul>
+        <hr>
+        <form action="{{url_for('greetings', gbid=guestbook)}}" method="POST">
+            <label for="title">Comment: </label>
+            <input id="title" type="text" name="content">
+            <br />
+            <input type="submit" value="Submit">
+        </form>
+        <hr>
+        <hr>
+        <a href="{{url_for('home')}}">Back</a>
+    </body>
+</html>

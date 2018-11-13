@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+</head>
+<body>
+<form method="POST" action="\">
+    {{ form.csrf_token }}
+    <p>
+        {{ form.name.label }}
+        {{ form.name(size=20) }}
+    </p>
+    <p>
+        {{ form.surname.label }}
+        {{ form.surname(size=20) }}
+    </p>
+    <p>
+        {{ form.password.label }}
+        {{ form.password(size=20) }}
+    </p>
+    <input type="submit" value="Invia">
+</form>
+</body>
+</html>
